@@ -1,6 +1,5 @@
-I automated my work with Python
-
 # Ticket_Handle_Copilot
+I automated my work with Python
 ## Ticket Handle Copilot - v 1.0
 
 I automated my work by creating a ticket handle copilot using Selenium.
