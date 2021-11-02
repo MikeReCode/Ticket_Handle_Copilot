@@ -1,0 +1,23 @@
+  Sub Colors()
+
+ With Range("A18,A23,A28,A33,A38,A43,A48,A53,A58,A63")
+    
+    .Characters(1, 21).Font.Color = vbGreen
+ End With
+ 
+  With Range("A3")
+    
+    .Characters(87, 7).Font.Color = vbGreen
+ End With
+ 
+   With Range("A6")
+    
+    .Characters(30, 7).Font.Color = vbGreen
+ End With
+ 
+    With Range("A7")
+    
+    .Characters(20, 300).Font.Color = vbGreen
+ End With
+
+ End Sub
