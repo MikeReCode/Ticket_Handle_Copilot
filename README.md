@@ -15,7 +15,7 @@ This automation also helps me create an escalation document (Excel) when I have 
 ### How it works:
 #### - Ticket Handle
 
-To start de automation we need to run the file `main.py`, after that we see the main menu.
+To start the automation we need to run the file `main.py`, after that we see the main menu.
 To initiate the automation wee need to type "connect", then a Chrome Browser will open with all the websites necessaries to work correctly. 
 
 ![](img/1.png)
