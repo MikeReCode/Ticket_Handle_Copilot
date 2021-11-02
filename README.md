@@ -1,8 +1,8 @@
 # Ticket_Handle_Copilot
-## I automated my work with Python
-### Ticket Handle Copilot - v 1.0
 
-I automated my work by creating a ticket handle copilot using Selenium.
+## Ticket Handle Copilot - v 1.0
+
+I automated my work by creating a ticket handle copilot using Python Selenium.
 This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, than completes the necessary fields on the ticket and at the end offers a proposal for an answer.
 
 This automation also helps me create an escalation document (Excel) when I have to escalate a certain issue.
