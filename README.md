@@ -1,10 +1,15 @@
 # Ticket_Handle_Copilot
+<<<<<<< HEAD
 ## Ticket Handle Copilot - v 1.1
+=======
 
-I automated my work by creating a ticket handle copilot using Selenium.
-This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, than completes the necessary fields on the ticket and at the end offers a proposal for an answer.
+## Ticket Handle Copilot - v 1.0
+>>>>>>> 87a01ff24c39e79a7c6ccd611b13552aa07dab5e
 
-This automation also helps me create an escalation document (Excel) when I have to escalate a certain issue.
+I automated my work by creating a ticket handle copilot using Python Selenium.
+This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, then fills in the necessary fields in the ticket and in the end provides a standard answer to be used on the ticket.
+
+This automation also helps me create an escalation document (Excel) when an issue needs to be escalated further, to the next level.
 
 ### Necessary libraries:
 
@@ -14,8 +19,13 @@ This automation also helps me create an escalation document (Excel) when I have 
 ### How it works:
 #### - Ticket Handle
 
+<<<<<<< HEAD
 To start de automation we need to run the file `main.py`, after that we see the main menu.
 To initiate the automation wee need to type "2", then a Chrome Browser will open with all the websites necessaries to work correctly. 
+=======
+To start the automation we need to run the file `main.py`, after that we see the main menu.
+To initiate the automation we need to type "connect", then an instance of Chrome Browser will open all the necessary web pages to work correctly. 
+>>>>>>> 87a01ff24c39e79a7c6ccd611b13552aa07dab5e
 
 ![](img/1.png)
 
@@ -23,7 +33,7 @@ To activate the "ticket handle" we need to type "1", then the automation will as
 
 ![](img/2.png)
 
-If we press "y", the automation takes the person's email address from the ticket and go to the first database, makes the search and gets some information.
+If we press "y", the automation takes the person's email address from the ticket and go to the first database, perform the search and retreaves some account information.
 
 ![](img/6.png)
 
@@ -37,7 +47,7 @@ After all the information is collected will show us a summary.
 
 Depending on the psReason it may ask us if we want to reactivate the account and that triggers different actions. 
 
-At the end of the process the automation completes all the necessary fields and  offers a proposal for an answer.
+At the end of the process the automation fills in the necessary fields and provides a standard answer to be used on the ticket.
 
 ![](img/4.png)
 
@@ -49,7 +59,11 @@ If you close by accident one of the necessary tabs for the automation to work, y
 
 #### - Escalation
 
+<<<<<<< HEAD
 For the escalation process you need to choose 10 ticket with a particular issue than type "4" and the automation will create the Excel file necessary for the escalation. 
+=======
+For the escalation process you need to choose 10 tickets with a particular issue then type "escalate" and the automation will create the Excel file necessary for the escalation. 
+>>>>>>> 87a01ff24c39e79a7c6ccd611b13552aa07dab5e
 
 ![](img/8.png)
 
