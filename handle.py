@@ -3,6 +3,7 @@ from datatool import Datatool
 from action import Action
 from zendesk import Zendesk
 import time
+import pandas as pd
 
 
 class HandleTicket():
@@ -21,34 +22,35 @@ class HandleTicket():
         self.driver.switch_to.window(self.tab_datatool)
         self.datatool.edit_psReason()
         self.driver.switch_to.window(self.tab_cint)
-        self.driver.find_element_by_xpath("//*[@data-bind='foreach: panelists']//a").click()
+        self.driver.find_elements_by_xpath("//*[@data-bind='foreach: panelists']//a")[-1].click()
         time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(0.5)
         self.cint.update_status()
         time.sleep(0.5)
         self.driver.close()
         
         
-    def handle_do_not_reactivate(self, psReason):
+    def handle_do_not_reactivate(self, psReason, status):
 
         self.driver.switch_to.window(self.tab_zendesk)
         self.zendesk.left_side_bar("ticket")
         self.zendesk.change_ticket_form("membership")
         self.zendesk.change_ticket_category("inavtive-invalid")
-        self.zendesk.change_ticket_status("sleep")
+        self.zendesk.change_ticket_status(status)
         self.zendesk.change_ticket_psReason(psReason)
         self.zendesk.left_side_bar("customer")
-        if psReason == "701":
+        if psReason in ["701", "707"]:
             self.zendesk.select_SA("3030")
         elif psReason == "702":
             self.zendesk.select_SA("3018")
         elif psReason == "703":
-            self.zendesk.select_SA("3030")
+            self.zendesk.select_SA("3061")
         else:
             self.zendesk.select_SA("4009")
             
             
-    def handle_direct_reactivation(self, psReason):
+    def handle_direct_reactivation(self, psReason, status):
     
         self.reactivate_panelist()
         print("Panelis reactivated !!!") 
@@ -56,7 +58,7 @@ class HandleTicket():
         self.zendesk.left_side_bar("ticket")
         self.zendesk.change_ticket_form("membership")
         self.zendesk.change_ticket_category("inavtive-invalid")
-        self.zendesk.change_ticket_status("sleep")
+        self.zendesk.change_ticket_status(status)
         self.zendesk.change_ticket_psReason(psReason)
         self.zendesk.left_side_bar("customer")
         if psReason == "400":
@@ -67,57 +69,74 @@ class HandleTicket():
             self.zendesk.select_SA("3020")
             
             
-    def handle_serie_600(self, psReason):
+    def handle_serie_600(self, psReason, id, status):
 
-        reactivated = False
+        reactivated = None
         
         if psReason == "603":
             self.datatool.edit_psReason(psReason="599")
+            reactivated = False
         elif psReason == "604":
+            reactivated = False
             pass
-        else:
+        elif psReason == "699":
+            df = pd.read_excel("check\psReason_699_Accounts_that_can_NOT_be_reactivated.xlsx")
+
+            baned = list(df['PanelistId2'])
+            id_int = int(id)
+            if id_int in baned:
+                print("DO NOT REACTIVATE !!!!    ---- Panelist in list")
+                reactivated = False
+            
+            
+   
         
-            while True:
-                inp = input(" Reactivate panelist ?  y / n : ")
-                print("")
-                if inp == "y":
-                    self.reactivate_panelist()
-                    reactivated = True
-                    print("Panelis reactivated !!!\n")
-                    break
-                elif inp == "n":
-                    break
-                else:
-                    print("Please incert correct input!\n")
+        while True:
+            if reactivated == False:
+                break
+            inp = input(" Reactivate panelist ?  y / n : ")
+            print("")
+            if inp == "y":
+                self.reactivate_panelist()
+                reactivated = True
+                print("Panelis reactivated !!!\n")
+                break
+            elif inp == "n":
+                reactivated = False
+                break
+            else:
+                print("Please incert correct input!\n")
             
         self.driver.switch_to.window(self.tab_zendesk)
         self.zendesk.left_side_bar("ticket")
         self.zendesk.change_ticket_form("membership")
         self.zendesk.change_ticket_category("inavtive-invalid")
-        self.zendesk.change_ticket_status("sleep")
+        self.zendesk.change_ticket_status(status)
         self.zendesk.change_ticket_psReason(psReason)
+
+            
         self.zendesk.left_side_bar("customer")
         if reactivated == True:
             if psReason == "601": 
                 self.zendesk.select_SA("3082")
             elif psReason == "699":
                 self.zendesk.select_SA("3053")
+            elif psReason == "605":
+                self.zendesk.select_SA("3057")
             else:
                 self.zendesk.select_SA("3020")
         else:
-            if psReason == "601" or psReason == "699": 
+            if psReason in ["601", "699", "605", "799"]:
                 self.zendesk.select_SA("3030")
             elif psReason == "603":
                 self.zendesk.select_SA("3060")
             elif psReason == "604":
                 self.zendesk.select_SA("3055")
-            elif psReason == "605":
-                self.zendesk.select_SA("3057")
             else:
                 self.zendesk.select_SA("4009")
                 
                 
-    def handle_no_psReason(self):
+    def handle_no_psReason(self, status):
     
         self.driver.switch_to.window(self.tab_zendesk)
         self.zendesk.left_side_bar("ticket")
@@ -160,3 +179,5 @@ class HandleTicket():
         self.zendesk.change_ticket_status("bad email")
         self.zendesk.change_ticket_psReason("201")
         self.zendesk.select_SA("3024")
+        
+        

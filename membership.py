@@ -1,23 +1,23 @@
 import time
 
 
-do_not_reactivate = ["301", "302", "304", "305", "306", "307", "308", "309", "310", "311", "312", "701", "702", "703"]
-serie_600 = ["601", "609", "610", "611", "699", "603", "604", "605"]
-direct_reactivation = ["713", "400", "602"]
+do_not_reactivate = ["301", "302", "304", "305", "306", "307", "308", "309", "310", "311", "312", "400", "401", "701", "702", "703", "707", "608"]
+serie_600 = ["601", "609", "610", "611", "699", "603", "604", "605", "799"]
+direct_reactivation = ["713", "602"]
 not_handle = ["708", "711"]
 
 def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab_zendesk, tab_datatool, tab_cint):
 
     using = True
     while using:
-        driver.switch_to.window(tab_zendesk)
+        
         id = "0"
         status = "0"
         ticket_nr = "0"
         email = "0"
         psReason = "0"
         while True:
-            options = ["y", "n", "quit"]
+            options = ["y", "n", "quit", "i"]
             handle = input("Handle thise Ticket ? y / n or quit: ")
             print("")
             if handle in options:
@@ -36,8 +36,12 @@ def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab
         
         start_time = time.time() # process counter 
         
+        driver.switch_to.window(tab_zendesk)
         ticket_nr = zendesk.extract_current_ticket_number()  
         email = zendesk.get_email_address()
+        
+        # Reser SA
+        # zendesk.reset_sa()
 
         if email == "":
             print("--- No email found --- Probably more than 1 ticket open !! ")
@@ -52,9 +56,14 @@ def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab
             handle_membership.handle_no_account_found()
             continue
             
-        if status == "Unsubscribed":
+        elif status == "Unsubscribed":
             print("*", f"Status: {status}", "*")
             handle_membership.handle_unsubscribed()
+            continue
+            
+        elif handle == "i":
+
+            cint.panelist_account()
             continue
             
         driver.switch_to.window(tab_datatool)
@@ -86,21 +95,21 @@ def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab
             if psReason in not_handle:
                 driver.switch_to.window(tab_zendesk)
                 print("Skip this ticket!!!")
-                continue
                 
             elif psReason == "":
-                handle_membership.handle_no_psReason()
+                handle_membership.handle_no_psReason(status)
                 
             elif psReason in do_not_reactivate:
-                handle_membership.handle_do_not_reactivate(psReason)
+                handle_membership.handle_do_not_reactivate(psReason, status)
                 
             elif psReason in direct_reactivation:
-                handle_membership.handle_direct_reactivation(psReason)
+                handle_membership.handle_direct_reactivation(psReason, status)
                 
             elif psReason in serie_600:
-                handle_membership.handle_serie_600(psReason)
+                handle_membership.handle_serie_600(psReason, id, status)
                 
             else:
+                driver.switch_to.window(tab_zendesk)
                 print("I don't know what to do with this ticket !!\n")
         
         print("")

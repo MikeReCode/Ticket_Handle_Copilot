@@ -6,6 +6,7 @@ from cint import Cint
 import membership
 import reconnect
 import escalation
+import paypal_denied
 import os
 
 
@@ -28,23 +29,23 @@ while True:
         handle_membership = HandleTicket(driver)
 
 
-        options = ["m", "connect", "quit", "reconnect", "escalate"]
+        options = ["1", "2", "3", "4", "5", "6"]
         print("*" * 50 + "\n")
-        handle = input(" Actions :\n\n m - membership\n Connect\n Reconnect\n Escalate\n Quit\n\nChoose your action: ")
-        handle = handle.lower()
+        handle = input(" Actions :\n\n 1 - Membership\n 2 - Connect\n 3 - Reconnect\n 4 - Escalate\n 5 - PayPal Denied \n 6 - Quit\n\nChoose your action: ")
+        #handle = handle.lower()
         print("")
         print("*" * 50 + "\n")
 
         if handle in options:
-            if handle == "m":
+            if handle == "1":
                 membership.membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab_zendesk, tab_datatool, tab_cint)
                 continue
                     
-            elif handle == "quit":
+            elif handle == "6":
                 print("See you next time beautiful !!")
                 break 
                 
-            elif handle == "connect":
+            elif handle == "2":
                 os.system('python connect.py')
                 executor_url, session_id = action.open_session_file()
 
@@ -54,14 +55,17 @@ while True:
                 
                 continue
             
-            elif handle == "reconnect":
+            elif handle == "3":
                 reconnect.reconnect(action)
                 tab_zendesk, tab_datatool, tab_cint = action.open_browser_tabas()
                 continue
                 
-            elif handle == "escalate":
+            elif handle == "4":
                 escalation.escalation(driver, zendesk, cint, tab_zendesk, tab_cint)
                 continue
+                
+            elif handle == "5":
+                paypal_denied.paypal_denied(driver, zendesk, cint, tab_zendesk, tab_cint)
         else:
             print("Please incert correct input!")
             continue

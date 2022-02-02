@@ -13,19 +13,19 @@ def reconnect(action):
     driver.switch_to.window(driver.window_handles[-1])
     driver.get("Zendesk link")
     zendesk = driver.current_window_handle
-    time.sleep(2)
+    time.sleep(1)
 
     driver.execute_script("window.open('about:blank', 'datatool');")
     driver.switch_to.window("datatool")
     driver.get("Datatool link")
     datatool = driver.current_window_handle
-    time.sleep(2)
+    time.sleep(1)
 
     driver.execute_script("window.open('about:blank', 'cint');")
     driver.switch_to.window("cint")
     driver.get("Cint Link")
     cint = driver.current_window_handle
-    time.sleep(2)
+    time.sleep(1)
 
     action.save_browser_tabas(zendesk, datatool, cint)
     driver.switch_to.window(driver.window_handles[0])
