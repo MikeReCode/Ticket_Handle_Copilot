@@ -1,5 +1,5 @@
 # Ticket_Handle_Copilot
-## Ticket Handle Copilot - v 1.1
+## Ticket Handle Copilot - v 1.2
 
 I automated my work by creating a ticket handle copilot using Selenium.
 This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, than completes the necessary fields on the ticket and at the end offers a proposal for an answer.
@@ -10,6 +10,9 @@ This automation also helps me create an escalation document (Excel) when I have 
 
 - Selenium
 - openpyxl
+- prettytable
+- pandas
+- python-dotenv
 
 ### How it works:
 #### - Ticket Handle
@@ -43,7 +46,7 @@ At the end of the process the automation completes all the necessary fields and 
 
 #### - Reconnect
 
-If you close by accident one of the necessary tabs for the automation to work, you have to close all the remaining tabs except one, type "5" and will open again all the necessary tabs. 
+If you close by accident one of the necessary tabs for the automation to work, you have to close all the remaining tabs except one, type "3" and will open again all the necessary tabs. 
 
 ![](img/5.png)
 
