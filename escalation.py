@@ -3,7 +3,6 @@ from openpyxl import load_workbook
 
 
 def escalation(driver, zendesk, cint, tab_zendesk, tab_cint):
-
     start_time = time.time()
 
     while True:
@@ -15,71 +14,74 @@ def escalation(driver, zendesk, cint, tab_zendesk, tab_cint):
             if handle == "n":
                 print("OK")
                 continue
-                    
+
             elif handle == "quit":
                 print("See you next time beautiful !!\n")
-                break 
+                break
             else:
                 print("Great !!")
-                
+
         else:
-            print("Please incert correct input!\n")
+            print("Please insert correct input!\n")
             continue
 
         driver.switch_to.window(tab_zendesk)
         checks = driver.find_elements_by_xpath('//*[@data-test-id="search-tables-results-ckeckbox"]//input')
-        ticket_nr = driver.find_elements_by_xpath('//*[@data-test-id="search-tables-results-ckeckbox"]//following::td[3]')
+        ticket_nr = driver.find_elements_by_xpath(
+            '//*[@data-test-id="search-tables-results-ckeckbox"]//following::td[3]')
 
         x = zip(checks, ticket_nr)
 
         ticket_ls = [tk_nr.text.strip("#") for checkbox, tk_nr in x if checkbox.is_selected()]
-        
+
         print(ticket_ls)
         if len(ticket_ls) == 10:
             print("great")
-            
+
         elif len(ticket_ls) < 10:
             print("You need to choose 10 tickets!!")
             continue
         else:
             print("You need to choose ONLY 10 tickets!!")
             continue
-     
-        survey = input("Please incert Survey Number:  ")
+
+        survey = input("Please insert Survey Number:  ")
         print("")
-        nr_complaints = input("Please incert Total Number of complaints recived for thise survey:  ")
+        nr_complaints = input("Please insert Total Number of complaints received for this survey:  ")
         print("")
-        countries_afected = input("Please incert countris afected in format ES, RU, TH, FR....  :  ")
+        countries_afected = input("Please insert countries affected in format ES, RU, TH, FR....  :  ")
 
         zendesk.close_tab()
-        print("tiket ls :", ticket_ls)
+        print("ticket ls :", ticket_ls)
         info = []
         for ticket in ticket_ls:
             zendesk.search_in_zendesk(ticket)
-            
-            subject = zendesk.get_ticket_subject()  
+
+            subject = zendesk.get_ticket_subject()
             email = zendesk.get_email_address()
             driver.switch_to.window(tab_cint)
             id, _, _ = cint.search_with_email(email)
             driver.switch_to.window(tab_zendesk)
+
             if subject.startswith("Re: ") or subject.startswith("Chat "):
                 comment = input("Please enter panelist comment:  ")
                 print("")
             else:
                 comment = zendesk.get_first_comment_in_ticket()
+
             date = zendesk.get_date_hour_of_first_comment()
             info.append((ticket, id, date, comment))
             zendesk.close_tab()
 
-
-        #load excel file
+        # load excel file
         workbook = load_workbook(filename="escalations/template.xlsx")
-         
-        #open workbook
+
+        # open workbook
         sheet = workbook.active
-         
-        #modify the desired cell
-        sheet["A3"] = f"Member Services have received inquiries from our LifePoints members regarding Survey  {survey} ."
+
+        # modify the desired cell
+        sheet[
+            "A3"] = f"Member Services have received inquiries from our LifePoints members regarding Survey  {survey} ."
         sheet["A6"] = f"Total # of Tickets Received: {nr_complaints}"
         sheet["A7"] = f"Countries affected:  {countries_afected}"
 
@@ -123,10 +125,7 @@ def escalation(driver, zendesk, cint, tab_zendesk, tab_cint):
         sheet["A63"] = f"Panelist ID {info[9][1]} wrote  {info[9][2]}"
         sheet["A64"] = info[9][3]
 
-
-
-        #save the file
+        # save the file
         workbook.save(filename=f"escalations/Panelist_Complaint_Lifepoints_{countries_afected}_{survey}.xlsx")
-
 
         print("--- %s seconds ---" % (time.time() - start_time))

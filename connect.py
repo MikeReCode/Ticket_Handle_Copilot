@@ -2,14 +2,18 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from action import Action
 import time
+import os
+import dotenv
+dotenv.load_dotenv()
 
 
-#if __name__ == '__main__':
 action = Action()
 
 options = webdriver.ChromeOptions()
-ser = Service("C:\\*************\\chromedriver") # Path to chrmoedriver
-options.add_argument("user-data-dir=C:\\Users\\******\\AppData\\Local\\Google\\Chrome\\User Data") # Path to your chrome profile
+
+ser = Service(os.getenv('chromedriver_path'))
+
+options.add_argument("user-data-dir=" + os.getenv('google_chrome_profile_path'))
 driver = webdriver.Chrome(service=ser, options=options)
 
 executor_url = driver.command_executor._url
@@ -26,19 +30,19 @@ time.sleep(1)
 
 driver.execute_script("window.open('about:blank', 'zendesk');")
 driver.switch_to.window("zendesk")
-driver.get("Zendesk Link")
+driver.get(os.getenv('zendesk_link'))
 zendesk = driver.current_window_handle
 time.sleep(1)
 
 driver.execute_script("window.open('about:blank', 'datatool');")
 driver.switch_to.window("datatool")
-driver.get("Datatool link")
+driver.get(os.getenv('datatool_link'))
 datatool = driver.current_window_handle
 time.sleep(1)
 
 driver.execute_script("window.open('about:blank', 'cint');")
 driver.switch_to.window("cint")
-driver.get("Cint link")
+driver.get(os.getenv('cint_link'))
 cint = driver.current_window_handle
 time.sleep(1)
 
