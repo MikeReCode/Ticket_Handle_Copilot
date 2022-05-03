@@ -20,7 +20,7 @@ def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab
         psReason = "0"
         while True:
             options = ["y", "n", "quit", "i"]
-            handle = input("Handle thise Ticket ? y / n or quit: ")
+            handle = input("Handle this Ticket ? y / n or quit: ")
             print("")
             if handle in options:
                 if handle == "n":
@@ -29,7 +29,7 @@ def membership_procedure(driver, zendesk, cint, datatool, handle_membership, tab
 
                 break
 
-            print("Please incert correct input!\n")
+            print("Please insert correct input!\n")
 
         if handle == "quit":
             print("See you next time beautiful !!\n")

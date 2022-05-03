@@ -90,7 +90,7 @@ class HandleTicket:
                 reactivated = False
 
         while True:
-            if not reactivated:
+            if reactivated == False:
                 break
             inp = input(" Reactivate panelist ?  y / n : ")
             print("")

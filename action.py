@@ -25,8 +25,8 @@ class Action:
         return text[0], text[1], text[2]
 
     def attach_to_session(self, executor_url, session_id):
-        ''' First get the "executor_url" "and session_id" , onece you got that info keep the browser session oppened 
-            than you can attach to that session while the browser session is oppened. 
+        ''' First get the "executor_url" "and session_id" , onece you got that info keep the browser session opened
+            than you can attach to that session while the browser session is opened.
             
             executor_url = driver.command_executor._url 
             session_id = driver.session_id  '''

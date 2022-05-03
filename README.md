@@ -56,4 +56,10 @@ For the escalation process you need to choose 10 ticket with a particular issue 
 
 ![](img/8.png)
 
+#### - PayPal Denied
 
+Creates a ticket from scratch by completing all the necessary information to notify the user that their paypal order has been canceled.
+
+#### - Quality Responses
+
+It receives as input an excel file from which it reads the ticket numbers and the answer to each ticket, then enters each ticket and automatically responds to all the tickets in the file.

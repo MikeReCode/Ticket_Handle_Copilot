@@ -7,7 +7,7 @@ language = {
 "MX": ["Mexico", "LifePoints - Pedido de recompensa de PayPal cancelado - "],
 "AR": ["Argentina", "LifePoints - Pedido de recompensa de PayPal cancelado - "],
 "CO": ["Colombia", "LifePoints - Pedido de recompensa de PayPal cancelado - "],
-"PE": ["Pedu", "LifePoints - Pedido de recompensa de PayPal cancelado - "],
+"PE": ["Peru", "LifePoints - Pedido de recompensa de PayPal cancelado - "],
 "US - EN": ["USA - English", "LifePoints - PayPal Reward Order Canceled - "],
 "DE": ["Germany", "LifePoints - PayPal-Prämienbestellung storniert - "],
 "AT": ["Austria", "LifePoints - PayPal-Prämienbestellung storniert - "],
@@ -44,7 +44,7 @@ def paypal_denied(driver, zendesk, cint, tab_zendesk, tab_cint):
                     
                 break
                 
-            print("Please incert correct input!\n")
+            print("Please insert correct input!\n")
             
         if handle == "quit":
             print("See you next time beautiful !!\n")
@@ -73,7 +73,7 @@ def paypal_denied(driver, zendesk, cint, tab_zendesk, tab_cint):
         order_num = input("\n Please insert Order Number:   ")
         order_num.strip()
         if order_num == "":
-            print("\n No order number incerted , canceling operation...\n ")
+            print("\n No order number inserted , canceling operation...\n ")
             continue
         driver.close()
         driver.switch_to.window(tab_zendesk)
