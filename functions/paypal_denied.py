@@ -23,6 +23,7 @@ language = {
 "JP": ["Japan", "LifePoints-PayPalリワード注文がキャンセルされました - "],
 "GR": ["Greece", "LifePoints - Η παραγγελία ανταμοιβής PayPal ακυρώθηκε - "],
 "TW": ["Taiwan", "LifePoints - PayPal 奖励订单已取消 - "],
+"SE": ["Sweden", "LifePoints - PayPal Reward Order annullerad - "],
 }
 
 

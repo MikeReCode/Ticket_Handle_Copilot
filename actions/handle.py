@@ -1,20 +1,17 @@
-from cint import Cint
-from datatool import Datatool
-from action import Action
-from zendesk import Zendesk
 import time
 import pandas as pd
 
 
 class HandleTicket:
 
-    def __init__(self, driver):
+    def __init__(self, driver, tab_zendesk, tab_datatool, tab_cint, datatool, cint, zendesk):
         self.driver = driver
-        self.action = Action()
-        self.tab_zendesk, self.tab_datatool, self.tab_cint = self.action.open_browser_tabas()
-        self.datatool = Datatool(self.driver)
-        self.cint = Cint(self.driver)
-        self.zendesk = Zendesk(self.driver)
+        self.tab_zendesk = tab_zendesk
+        self.tab_datatool = tab_datatool
+        self.tab_cint = tab_cint
+        self.datatool = datatool
+        self.cint = cint
+        self.zendesk = zendesk
 
     def reactivate_panelist(self):
 
@@ -84,6 +81,7 @@ class HandleTicket:
             df = pd.read_excel("check\psReason_699_Accounts_that_can_NOT_be_reactivated.xlsx")
 
             baned = list(df['PanelistId2'])
+            print(baned)
             id_int = int(id)
             if id_int in baned:
                 print("DO NOT REACTIVATE !!!!    ---- Panelist in list")

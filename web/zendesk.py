@@ -104,7 +104,7 @@ class Zendesk:
         k.send_keys(Keys.ENTER)
 
     def change_quality_escalation(self, escalation):
-        ''' issue ->  issue you want to track'''
+        ''' Change status of the quality team escalation '''
 
         k = self.driver.find_element_by_xpath("//label[contains (text(), 'Quality Escalation')]//following::input[1]")
         k.send_keys(escalation)

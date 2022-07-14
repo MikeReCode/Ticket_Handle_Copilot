@@ -47,3 +47,9 @@ class Action:
         # Replace the patched function with original function
         WebDriver.execute = original_execute
         return driver
+
+
+if __name__ == "__main__":
+    print("sardina")
+    ac = Action()
+    print(ac.open_session_file())

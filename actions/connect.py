@@ -14,6 +14,8 @@ options = webdriver.ChromeOptions()
 ser = Service(os.getenv('chromedriver_path'))
 
 options.add_argument("user-data-dir=" + os.getenv('google_chrome_profile_path'))
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
 driver = webdriver.Chrome(service=ser, options=options)
 
 executor_url = driver.command_executor._url

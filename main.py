@@ -1,13 +1,14 @@
-from handle import HandleTicket
-from datatool import Datatool
-from zendesk import Zendesk
-from action import Action
-from cint import Cint
-from quality_responses import process_responses
-import membership
-import reconnect
-import escalation
-import paypal_denied
+from actions.handle import HandleTicket
+from web.datatool import Datatool
+from web.zendesk import Zendesk
+from actions.action import Action
+from web.cint import Cint
+from functions.quality_responses import process_responses
+import functions.membership as membership
+import actions.reconnect as reconnect
+
+import functions.escalation as escalation
+import functions.paypal_denied as paypal_denied
 import os
 
 from prettytable import PrettyTable
@@ -22,13 +23,16 @@ try:
 except:
     print("\n" + "*" * 50 + "\n")
     print(" You are not connected!!!\n")
-
+    driver= None
+    tab_zendesk = None
+    tab_datatool = None
+    tab_cint = None
 while True:
-
+    #print(action.open_session_file())
     datatool = Datatool(driver)
     zendesk = Zendesk(driver)
     cint = Cint(driver)
-    handle_membership = HandleTicket(driver)
+    handle_membership = HandleTicket(driver, tab_zendesk, tab_datatool, tab_cint, datatool, cint, zendesk)
 
     options = ["1", "2", "3", "4", "5", "6", "7"]
     print("*" * 50 + "\n")
@@ -67,7 +71,7 @@ while True:
             break
 
         elif handle == "2":
-            os.system('python connect.py')
+            os.system('python actions/connect.py')
             executor_url, session_id = action.open_session_file()
 
             driver = action.attach_to_session(executor_url, session_id)
@@ -88,7 +92,7 @@ while True:
         elif handle == "5":
             paypal_denied.paypal_denied(driver, zendesk, cint, tab_zendesk, tab_cint)
 
-        elif handle == "6":
+        elif handle == "6":           
             process_responses(driver, zendesk, cint, datatool, handle_membership, tab_zendesk, tab_datatool, tab_cint)
     else:
         print("Please insert correct input!")
