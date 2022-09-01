@@ -1,7 +1,7 @@
 # Ticket_Handle_Copilot
 ## Ticket Handle Copilot - v 1.3
 
-I automated my work by creating a ticket handle copilot using Selenium.
+I automated my work by creating a "ticket handle copilot" using Selenium.
 This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, than completes the necessary fields on the ticket and at the end offers a proposal for an answer.
 
 This automation also helps me create an escalation document (Excel) when I have to escalate a certain issue.
@@ -62,4 +62,4 @@ Creates a ticket from scratch by completing all the necessary information to not
 
 #### - Quality Responses
 
-It receives as input an excel file from which it reads the ticket numbers and the answer to each ticket, then enters each ticket and automatically responds to all the tickets in the file.
+Receives as input an Excel file with the tickets that need to be updated and the responses for each ticket then answers and autocompletes all the tickets from the file automatically.
