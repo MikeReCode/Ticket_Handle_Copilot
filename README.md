@@ -1,10 +1,9 @@
 # Ticket_Handle_Copilot
 ## Ticket Handle Copilot - v 1.3
 
-I automated my work by creating a "ticket handle copilot" using Selenium.
-This automation allows me to handle some tickets faster because it checks in the necessary databases all the crucial information, take the necessary actions, than completes the necessary fields on the ticket and at the end offers a proposal for an answer.
+I automated my work by creating a "ticket handle copilot" using Python and Selenium.
 
-This automation also helps me create an escalation document (Excel) when I have to escalate a certain issue.
+This application can perform various tasks such as check user information in external databases, autocomplete all the necessary fields of a ticket and suggest an answer depending on the user's account status, it can create Excel files necessary to escalate cases to another department or receive an Excel file as input to answer and autocomplete specific tickets, etc.
 
 ### Necessary libraries:
 
